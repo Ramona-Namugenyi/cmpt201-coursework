@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#define MAX 256
+
+int main() {
+  char input[MAX];
+  while (1) {
+    printf("Enter programs to run.\n ");
+    fflush(stdout);
+
+    if (fgets(input, MAX, stdin) == NULL) {
+      continue;
+    }
+
+    input[strcspn(input, "\n")] = '\0';
+    input[strcspn(input, "\r")] = '\0';
+    while (input[0] == ' ' || input[0] == '\t')
+      memmove(input, input + 1, strlen(input));
+
+    pid_t pid = fork();
+
+    if (pid < 0) {
+      perror("fork failed");
+    } else if (pid == 0) {
+      execl(input, input, NULL);
+      perror("execl");
+      printf("Exec failure\n");
+      return 1;
+    } else {
+      waitpid(pid, NULL, 0);
+    }
+  }
+  return 0;
+}
