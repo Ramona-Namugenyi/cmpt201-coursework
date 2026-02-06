@@ -55,7 +55,7 @@ int find_worst_fit(struct header *free_list_ptr, uint64_t size) {
   uint64_t worst_fit_size = 0;
 
   while (current != NULL) {
-    if (current->size >= size && current->size > worst_fit_size) {
+    if (current->size >= size && current->size > worst_fit_size){
       worst_fit_size = current->size;
       worst_fit_id = current->id;
     }
@@ -107,3 +107,4 @@ Pseudo-code for coalescing contiguous free blocks:
       i. Move to the next block.
 3. Continue until the end of the list.
 */
+
