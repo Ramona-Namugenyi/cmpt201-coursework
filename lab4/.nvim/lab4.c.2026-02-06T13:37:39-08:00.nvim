@@ -1,0 +1,24 @@
+#define _DEFAULT_SOURCE
+#define _ISOC99_SOURCE
+
+#include <stdnt.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define BLOCK_SIZE 128
+#define HEAP_SIZE 256
+#define BUF_SIZE 64
+
+struct header{
+  uint64_t size;
+  struct header *next;
+}
+
+void error_handle(const char *msg {
+    perror(msg);
+    exit(EXIT_FAILURE);
+}
+
+void print_out(char *format, void *data, size_t data_size) {
+    
